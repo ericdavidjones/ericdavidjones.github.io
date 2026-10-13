@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create and Invoice Your First Work Order | Gearloft Essentials</title>
+<meta name="description" content="Sample eLearning course by Eric D. Jones. Gearloft and Riverbend Cycle & Small Engine are fictional.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#2e6b4f; --accent-dark:#1f4d38; --accent-soft:#e7f1ec;
+  --side:#1c2420; --side-ink:#e9efeb; --side-muted:#9fb1a7; --side-line:#2c3832;
+  --bg:#ffffff; --page:#f6f7f5; --ink:#1e2522; --muted:#55615b; --line:#dde3df;
+  --warn:#9a5b00; --warn-soft:#fff4e0; --tip-soft:#eef5fb; --tip:#1d5c8f;
+  --radius:10px; --sidew:300px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;font:18px/1.65 "Source Sans 3",system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid #f2b705;outline-offset:2px}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;padding:8px 12px;z-index:50}
+.skip:focus{left:8px}
+
+/* ---------- Sidebar ---------- */
+.side{position:fixed;inset:0 auto 0 0;width:var(--sidew);background:var(--side);color:var(--side-ink);display:flex;flex-direction:column;z-index:20;transition:transform .25s}
+.side-head{padding:28px 24px 20px;border-bottom:1px solid var(--side-line)}
+.side-head .brand{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--side-muted);font-weight:700;margin:0 0 6px}
+.side-head h2{font-size:21px;line-height:1.25;margin:0 0 18px}
+.prog-label{font-size:13px;letter-spacing:.1em;font-weight:700;text-transform:uppercase}
+.prog{height:6px;background:var(--side-line);border-radius:6px;margin-top:8px;overflow:hidden}
+.prog span{display:block;height:100%;width:0;background:#6fbf96;transition:width .4s}
+.side nav{overflow-y:auto;flex:1}
+.side ol{list-style:none;margin:0;padding:0}
+.side li a{display:flex;align-items:flex-start;gap:12px;padding:16px 24px;color:var(--side-ink);text-decoration:none;border-bottom:1px solid var(--side-line);border-left:4px solid transparent;font-weight:600;line-height:1.35}
+.side li a:hover{background:#243029}
+.side li a[aria-current="page"]{background:#000;border-left-color:#6fbf96}
+.side li a.locked{color:var(--side-muted);pointer-events:none}
+.side .num{flex:0 0 auto;font-size:13px;color:var(--side-muted);width:18px;padding-top:2px}
+.side .state{margin-left:auto;flex:0 0 auto;width:18px;height:18px;border-radius:50%;border:2px solid var(--side-muted);margin-top:2px}
+.side .done .state{background:#6fbf96;border-color:#6fbf96;position:relative}
+.side .done .state::after{content:"";position:absolute;left:4px;top:1px;width:5px;height:9px;border:solid #1c2420;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.side .soon{font-size:12px;color:var(--side-muted);font-weight:400;display:block}
+.side-foot{padding:14px 24px;font-size:13px;color:var(--side-muted);border-top:1px solid var(--side-line)}
+.menu-btn{display:none;position:fixed;top:12px;left:12px;z-index:30;background:var(--side);color:#fff;border:0;border-radius:8px;width:44px;height:44px}
+.menu-btn svg{display:block;margin:auto}
+.scrim{display:none}
+
+/* ---------- Main ---------- */
+main{margin-left:var(--sidew);min-height:100vh}
+.lesson{display:none}
+.lesson.active{display:block}
+.hero{position:relative;color:#fff;padding:96px 8% 72px;background:linear-gradient(135deg,#183a2b 0%,#2e6b4f 60%,#3f8a66 100%);overflow:hidden}
+.hero svg.art{position:absolute;right:-60px;top:-40px;width:520px;max-width:70%;opacity:.16;pointer-events:none}
+.hero .kicker{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;opacity:.85;margin:0 0 10px}
+.hero h1{font-size:clamp(34px,5vw,52px);line-height:1.1;margin:0 0 16px;max-width:760px;font-weight:800}
+.hero p{font-size:20px;max-width:640px;margin:0 0 28px;opacity:.92}
+.hero.small{padding:72px 8% 56px}
+.hero.photo{background-size:cover;background-position:center}
+.hero.welcome{background-image:linear-gradient(90deg,rgba(16,40,29,.94) 0%,rgba(24,58,43,.86) 45%,rgba(24,58,43,.35) 100%),url(images/hero-welcome.jpg);background-position:center 35%}
+.hero.l1{background-image:linear-gradient(90deg,rgba(16,40,29,.94) 0%,rgba(24,58,43,.8) 50%,rgba(24,58,43,.3) 100%),url(images/hero-lesson1.jpg);background-position:center 60%}
+.hero h1,.hero p{text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--accent-dark);border:0;border-radius:6px;padding:13px 26px;font-weight:700;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;font-size:15px}
+.btn.solid{background:var(--accent);color:#fff}
+.btn.solid:hover{background:var(--accent-dark)}
+.btn[disabled]{background:#c9d1cc;color:#5d6a63;cursor:not-allowed}
+
+.block{max-width:760px;margin:0 auto;padding:44px 24px}
+.block + .block{padding-top:8px}
+.block h2{font-size:30px;line-height:1.2;margin:0 0 14px}
+.block h3{font-size:22px;margin:0 0 10px}
+.block p{margin:0 0 16px}
+.lede{font-size:21px;color:var(--muted)}
+.divider{border:0;border-top:1px solid var(--line);max-width:760px;margin:12px auto}
+
+/* numbered list (Rise-style) */
+.numlist{list-style:none;padding:0;margin:8px 0 0;counter-reset:n}
+.numlist li{counter-increment:n;position:relative;padding:4px 0 18px 64px;min-height:44px}
+.numlist li::before{content:counter(n);position:absolute;left:0;top:0;width:42px;height:42px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700}
+
+/* checklist */
+.checks{list-style:none;padding:0;margin:0}
+.checks li{position:relative;padding:0 0 12px 36px}
+.checks li::before{content:"";position:absolute;left:4px;top:5px;width:7px;height:13px;border:solid var(--accent);border-width:0 3px 3px 0;transform:rotate(45deg)}
+
+/* scenario / quote */
+.scenario{display:flex;gap:22px;align-items:flex-start;background:var(--page);border-radius:var(--radius);padding:28px}
+.avatar{flex:0 0 72px;width:72px;height:72px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center}
+.scenario p:last-child{margin-bottom:0}
+
+/* callouts */
+.callout{border-left:5px solid var(--tip);background:var(--tip-soft);border-radius:0 var(--radius) var(--radius) 0;padding:20px 24px}
+.callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+.callout strong.tag{display:block;text-transform:uppercase;letter-spacing:.1em;font-size:13px;color:var(--tip);margin-bottom:4px}
+.callout.warn strong.tag{color:var(--warn)}
+.callout p:last-child{margin:0}
+
+/* process (step-through) */
+.process{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff}
+.process-top{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--page);font-size:15px;color:var(--muted)}
+.dots{display:flex;gap:6px}
+.dots span{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots span.on{background:var(--accent)}
+.step{display:none;padding:32px 36px 28px}
+.step.on{display:block}
+.step .label{font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:6px}
+.step h3{font-size:24px}
+.process-nav{display:flex;justify-content:space-between;padding:0 36px 28px}
+.process-nav button{background:none;border:2px solid var(--accent);color:var(--accent);border-radius:6px;padding:8px 18px;font-weight:700}
+.process-nav button.primary{background:var(--accent);color:#fff}
+.process-nav button[disabled]{opacity:.35;cursor:default}
+
+/* labeled graphic (mock app screen) */
+.mock{position:relative;border:1px solid #c9d2cd;border-radius:12px;background:#fff;box-shadow:0 10px 30px rgba(20,40,30,.12);font-size:15px;line-height:1.4}
+.mock-bar{border-radius:11px 11px 0 0;display:flex;align-items:center;gap:10px;background:#21302a;color:#fff;padding:10px 16px;font-weight:700}
+.mock-bar .logo{width:22px;height:22px;border-radius:6px;background:#6fbf96;display:grid;place-items:center;color:#1c2420;font-size:13px}
+.mock-bar .crumb{font-weight:400;opacity:.75;margin-left:6px}
+.mock-body{padding:20px 22px 24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mock .full{grid-column:1/-1}
+.mock .fld label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#6b7771;font-weight:700;margin-bottom:4px}
+.mock .box{border:1px solid #ccd5d0;border-radius:6px;padding:9px 11px;background:#fbfcfb;min-height:40px}
+.mock .box.tall{min-height:72px}
+.mock .badge{display:inline-block;background:#e3f2ea;color:#1f6a46;font-weight:700;font-size:12px;border-radius:99px;padding:3px 10px;text-transform:uppercase;letter-spacing:.06em}
+.mock .row{display:flex;justify-content:space-between;align-items:center}
+.mock .fake-btn{background:#2e6b4f;color:#fff;border-radius:6px;padding:8px 16px;font-weight:700;font-size:14px}
+.fld{position:relative}.lab{display:flex;align-items:center;gap:10px;margin-bottom:6px;position:relative}.mock .fld .lab label{margin:0}
+.hot{flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:2px solid #fff;background:var(--accent);color:#fff;font-weight:800;font-size:14px;box-shadow:0 0 0 0 rgba(46,107,79,.6);animation:pulse 2.2s infinite;padding:0}
+.hot[aria-expanded="true"]{background:#f2b705;color:#1e2522;animation:none}
+.hot.seen{animation:none}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,107,79,.55)}70%{box-shadow:0 0 0 14px rgba(46,107,79,0)}100%{box-shadow:0 0 0 0 rgba(46,107,79,0)}}
+.pop{position:absolute;left:0;top:42px;z-index:3;width:min(300px,92vw);background:#1e2522;color:#fff;border-radius:8px;padding:16px 18px;font-size:16px;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.pop.up{top:auto;bottom:40px}
+.pop strong{display:block;margin-bottom:4px;color:#9fe0bd}
+.pop button{position:absolute;top:6px;right:8px;background:none;border:0;color:#fff;font-size:20px;line-height:1}
+.hint{font-size:15px;color:var(--muted);margin-top:12px}
+
+/* flip cards */
+.flips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.flip{perspective:900px;height:230px;background:none;border:0;padding:0;text-align:left}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip[aria-pressed="true"] .flip-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;justify-content:space-between}
+.front{background:var(--page);border:1px solid var(--line)}
+.back{background:var(--accent);color:#fff;transform:rotateY(180deg)}
+.face .tag{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;opacity:.75}
+.face q{font-size:20px;font-weight:700;quotes:"\201C" "\201D"}
+.back q{font-size:17px}
+.face .turn{font-size:13px;opacity:.7}
+
+/* statement */
+.statement{border-top:4px solid var(--accent);border-bottom:4px solid var(--accent);padding:26px 0;text-align:center;font-size:24px;font-weight:700;line-height:1.4}
+.statement span{color:var(--accent)}
+
+/* lesson footer */
+.next{background:var(--page);padding:48px 24px 64px;text-align:center}
+.next p{color:var(--muted);margin:0 0 14px}
+.credit{font-size:13px;color:var(--muted);text-align:center;padding:18px 24px 28px}
+
+
+.hero.l2{background-image:linear-gradient(90deg,rgba(16,40,29,.94) 0%,rgba(24,58,43,.84) 50%,rgba(24,58,43,.4) 100%),url(images/hero-welcome.jpg);background-position:left 60%}
+.hero.l3{background-image:linear-gradient(90deg,rgba(16,40,29,.94) 0%,rgba(24,58,43,.84) 50%,rgba(24,58,43,.4) 100%),url(images/hero-lesson1.jpg);background-position:center 15%}
+.hero.l4{background-image:linear-gradient(90deg,rgba(16,40,29,.94) 0%,rgba(24,58,43,.84) 50%,rgba(24,58,43,.4) 100%),url(images/hero-welcome.jpg);background-position:right 70%}
+/* tabs */
+.tablist{display:flex;border-bottom:2px solid var(--line)}
+.tablist button{background:none;border:0;border-bottom:4px solid transparent;margin-bottom:-2px;padding:12px 20px;font-weight:700;color:var(--muted)}
+.tablist button[aria-selected="true"]{color:var(--accent-dark);border-bottom-color:var(--accent)}
+.tabpanel{padding:24px 4px 4px}
+/* line items in mocks */
+.mock .lines{border:1px solid #ccd5d0;border-radius:6px;background:#fbfcfb}
+.mock .lines div{display:flex;justify-content:space-between;gap:12px;padding:9px 11px;border-bottom:1px solid #e3e8e5}
+.mock .lines div:last-child{border-bottom:0}
+.mock .lines .sum{font-weight:800;background:#eef4f0}
+.mock .total{font-weight:800;font-size:17px}
+.mock .sub{font-size:13px;color:#6b7771}
+/* sorting */
+.sort-item{border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:12px}
+.sort-q{font-weight:700;margin:0 0 10px!important}
+.sort-opts{display:flex;flex-wrap:wrap;gap:8px}
+.sort-opts button,.choices button{background:#fff;border:2px solid var(--line);border-radius:6px;padding:8px 16px;font-weight:600;color:var(--ink)}
+.sort-opts button:hover,.choices button:hover{border-color:var(--accent)}
+.sort-opts button.right,.choices button.right{border-color:var(--accent);background:var(--accent-soft)}
+.sort-opts button.wrong,.choices button.wrong{border-color:#b54708;background:#fdf0e6}
+.sort-fb,.choice-fb{margin:10px 0 0!important;font-size:16px}
+.sort-fb:empty,.choice-fb:empty{display:none}
+.choices{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.choices button{text-align:left;padding:14px 18px}
+/* accordion */
+.accordion details{border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;background:#fff}
+.accordion summary{cursor:pointer;padding:16px 20px;font-weight:700;list-style:none;display:flex;align-items:center;gap:10px}
+.accordion summary::-webkit-details-marker{display:none}
+.accordion summary::after{content:"+";margin-left:auto;font-size:24px;line-height:1;color:var(--accent)}
+.accordion details[open] summary::after{content:"\2212"}
+.accordion details>div{padding:0 20px 18px}
+.pill{font-size:12px;background:var(--accent-soft);color:var(--accent-dark);border-radius:99px;padding:2px 10px;font-weight:700}
+
+.hero.l5{background-image:linear-gradient(90deg,rgba(16,40,29,.94) 0%,rgba(24,58,43,.84) 50%,rgba(24,58,43,.4) 100%),url(images/hero-lesson1.jpg);background-position:center 85%}
+.btn.ghost{background:#fff;color:var(--accent);border:2px solid var(--accent)}
+/* mode toggle */
+.mode{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 20px}
+.mode button{text-align:left;background:#fff;border:2px solid var(--line);border-radius:var(--radius);padding:14px 16px;color:var(--ink)}
+.mode button span{display:block;font-size:15px;color:var(--muted)}
+.mode button[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+/* simulation */
+.sim{background:var(--page);border-radius:14px;padding:18px}
+.sim-head{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.sim-restart{background:none;border:0;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:13px}
+.sim-prompt{margin:8px 0 14px!important;font-size:18px;min-height:28px}
+.sim-prompt .sub{color:var(--muted);font-weight:700}
+.sim-app{font-size:15px}
+.sim-screen{padding:18px 20px 20px;min-height:290px;display:flex;flex-direction:column;gap:14px}
+.sim-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.sim-row h4{margin:0;font-size:17px}
+.sbtn{background:#fff;border:1px solid #b9c5be;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;color:var(--ink)}
+.sbtn.primary{background:#2e6b4f;border-color:#2e6b4f;color:#fff}
+.sbtn[aria-disabled="true"]{opacity:.45}
+.sim-list{display:flex;flex-direction:column;border:1px solid #ccd5d0;border-radius:6px;overflow:hidden}
+.sim-list button{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;background:#fbfcfb;border:0;border-bottom:1px solid #e3e8e5;padding:11px 12px;font-size:15px;color:var(--ink)}
+.sim-list button:last-child{border-bottom:0}
+.sim-list button:hover,.pick:hover{background:#eef4f0}
+.sim-list .sub,.sim .sub{font-size:13px;color:#6b7771}
+.sim-label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#6b7771;font-weight:700;margin:0!important}
+.sim-input{font:inherit;font-size:16px;border:1px solid #b9c5be;border-radius:6px;padding:9px 11px;width:100%}
+.sim-empty{color:#6b7771;font-size:14px;margin:0!important;padding:10px 12px}
+.sim-picks{display:flex;flex-direction:column;gap:8px}
+.pick{display:flex;justify-content:space-between;gap:10px;text-align:left;background:#fbfcfb;border:2px solid #ccd5d0;border-radius:6px;padding:10px 12px;font-size:15px;color:var(--ink)}
+.pick[aria-pressed="true"]{border-color:#2e6b4f;background:var(--accent-soft)}
+.pick[aria-pressed="true"] span:first-child::before{content:"\2713  ";color:#2e6b4f;font-weight:800}
+.badge.wait{background:#fff4e0;color:#9a5b00}
+.sim-fb{margin:12px 0 0!important;font-size:16px;min-height:4px}
+.sim-fb.bad{background:#fdf0e6;border-left:4px solid #b54708;padding:10px 14px;border-radius:0 8px 8px 0}
+.hint-line{display:block;margin-top:4px;font-weight:600}
+.sim-done h4{margin:8px 0;font-size:19px}
+/* knowledge check */
+.kc-q{border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px 12px;margin:0 0 14px}
+.kc-q legend{float:left;width:100%;font-weight:700;padding:0;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.kc-q legend+label{clear:both}
+.kc-n{flex:0 0 28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:14px;margin-top:1px}
+.kc-q label{display:flex;gap:10px;align-items:flex-start;padding:8px 6px;border-radius:6px;cursor:pointer}
+.kc-q label:hover{background:var(--page)}
+.kc-q input{margin-top:6px;accent-color:var(--accent);width:18px;height:18px;flex:0 0 auto}
+.kc-q.ok{border-color:var(--accent);background:#f4faf6}
+.kc-q.no{border-color:#b54708;background:#fffaf5}
+.kc-fb{margin:6px 6px 6px!important;font-size:16px}
+.kc-fb:empty{display:none}
+.kc-actions{display:flex;gap:12px;flex-wrap:wrap}
+.kc-result{font-weight:700;font-size:19px;margin-top:14px!important}
+.kc-result.pass{color:var(--accent-dark)}
+.kc-result.fail{color:#9a3d00}
+.done-card{border:2px solid var(--accent);border-radius:14px;padding:28px;text-align:left}
+.done-card h2{margin-top:8px}
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .side{transform:translateX(-100%)}
+  body.menu-open .side{transform:none}
+  body.menu-open .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:15}
+  .menu-btn{display:block}
+  main{margin-left:0}
+  .hero{padding:88px 24px 56px}
+  .hero.small{padding:80px 24px 44px}
+  .flips{grid-template-columns:1fr}
+  .flip{height:190px}
+  .mock-body{grid-template-columns:1fr}
+  .step{padding:26px 22px 22px}.process-nav{padding:0 22px 22px}
+  .scenario{flex-direction:column;padding:22px}
+  .mode{grid-template-columns:1fr}
+  .sim{padding:12px;margin:0 -8px}
+  .sim-screen{padding:14px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to lesson content</a>
+<button class="menu-btn" id="menuBtn" aria-label="Open course menu" aria-expanded="false" aria-controls="sidebar">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+<div class="scrim" id="scrim"></div>
+
+<aside class="side" id="sidebar" aria-label="Course menu">
+  <div class="side-head">
+    <p class="brand">Gearloft Essentials</p>
+    <h2>Create and Invoice Your First Work Order</h2>
+    <div class="prog-label" id="progLabel">0% complete</div>
+    <div class="prog" role="progressbar" aria-label="Course progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progBar"></span></div>
+  </div>
+  <nav>
+    <ol id="menu">
+      <li><a href="#welcome" data-id="welcome"><span class="num"></span>Welcome<span class="state" aria-hidden="true"></span></a></li>
+      <li><a href="#lesson-1" data-id="lesson-1"><span class="num">1</span>Start the work order<span class="state" aria-hidden="true"></span></a></li>
+      <li><a href="#lesson-2" data-id="lesson-2"><span class="num">2</span>Add labor and parts<span class="state" aria-hidden="true"></span></a></li>
+      <li><a href="#lesson-3" data-id="lesson-3"><span class="num">3</span>Get approval<span class="state" aria-hidden="true"></span></a></li>
+      <li><a href="#lesson-4" data-id="lesson-4"><span class="num">4</span>Complete and invoice<span class="state" aria-hidden="true"></span></a></li>
+      <li><a href="#lesson-5" data-id="lesson-5"><span class="num">5</span>Practice and check<span class="state" aria-hidden="true"></span></a></li>
+    </ol>
+  </nav>
+  <div class="side-foot">Sample course by Eric D. Jones. Gearloft is a fictional product.</div>
+</aside>
+
+<main id="content" tabindex="-1">
+
+<!-- ===================== WELCOME ===================== -->
+<section class="lesson" id="welcome" aria-labelledby="welcome-title">
+  <header class="hero photo welcome">
+    <p class="kicker">Gearloft Essentials · 15–20 minutes</p>
+    <h1 id="welcome-title">Create and Invoice Your First Work Order</h1>
+    <p>Get one job into Gearloft from start to finish, from the moment a customer walks in to the moment they get a bill.</p>
+    <a class="btn" href="#lesson-1" data-complete="welcome">Start course
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </header>
+
+  <div class="block">
+    <div class="scenario">
+      <div class="avatar" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2e6b4f" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      </div>
+      <div>
+        <h2 style="font-size:24px">Meet Sam</h2>
+        <p>Sam runs Riverbend Cycle &amp; Small Engine with one part-time helper. Until last month, every job lived on a paper ticket clipped to the workbench, and a few always went missing before anyone billed them.</p>
+        <p>Sam just switched to Gearloft. Right now, Maria Lopez is at the counter with a push mower that won't start. In this course, you'll take her job from start to finish.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>What you'll be able to do</h2>
+    <ol class="numlist">
+      <li>Create a work order with the right customer, equipment, and problem description.</li>
+      <li>Add labor and parts so every billable item is captured.</li>
+      <li>Get the customer's approval on an estimate before you start work.</li>
+      <li>Complete the job and send an accurate invoice.</li>
+    </ol>
+  </div>
+
+  <div class="block">
+    <h2>Before you start</h2>
+    <ul class="checks">
+      <li>Set aside 15–20 minutes. You can stop anytime; your progress is saved in this browser.</li>
+      <li>You don't need a Gearloft login. Practice screens are built into the course.</li>
+      <li>Each lesson takes about 3–4 minutes. You'll finish with a practice run and a short check.</li>
+    </ul>
+  </div>
+
+  <div class="next">
+    <p>Ready? Let's open Maria's work order.</p>
+    <a class="btn solid" href="#lesson-1" data-complete="welcome">Lesson 1: Start the work order</a>
+  </div>
+</section>
+
+<!-- ===================== LESSON 1 ===================== -->
+<section class="lesson" id="lesson-1" aria-labelledby="l1-title">
+  <header class="hero small photo l1">
+    <p class="kicker">Lesson 1 of 4</p>
+    <h1 id="l1-title">Start the work order</h1>
+    <p>A good start makes the rest of the job easy.</p>
+  </header>
+
+  <div class="block">
+    <p class="lede">A work order is the home for everything about one job: who the customer is, what they brought in, what's wrong, and what you did about it.</p>
+    <p>When the start is right, the estimate, the approval, and the invoice all build on it. When it's wrong, like a duplicate customer or a vague problem description, the mistake follows the job all the way to the bill.</p>
+  </div>
+
+  <div class="block">
+    <h2>Four steps to open a work order</h2>
+    <p>Step through each one. You'll practice them yourself at the end of the course.</p>
+    <div class="process" id="proc1">
+      <div class="process-top"><span aria-live="polite">Step 1 of 4</span><div class="dots" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span></div></div>
+      <div class="step on">
+        <div class="label">Step 1</div>
+        <h3>Click New Work Order</h3>
+        <p>From the Gearloft dashboard, click <strong>New Work Order</strong> in the top-right corner. Every job starts here, even a quick tune-up.</p>
+      </div>
+      <div class="step">
+        <div class="label">Step 2</div>
+        <h3>Find the customer</h3>
+        <p>Search by last name or phone number. If the customer has been in before, select them. Only click <strong>Add customer</strong> when the search comes up empty.</p>
+      </div>
+      <div class="step">
+        <div class="label">Step 3</div>
+        <h3>Choose the equipment</h3>
+        <p>Pick the item they brought in today from their equipment list. If it's new to you, add it with its type, make, and model so it's on file next time.</p>
+      </div>
+      <div class="step">
+        <div class="label">Step 4</div>
+        <h3>Describe the problem</h3>
+        <p>Write what's wrong, when it happens, and what you've already checked. Then click <strong>Save</strong>. The work order is open and ready for labor and parts.</p>
+      </div>
+      <div class="process-nav">
+        <button type="button" data-dir="-1" disabled>Back</button>
+        <button type="button" data-dir="1" class="primary">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="callout">
+      <strong class="tag">Tip</strong>
+      <p><strong>Search before you add.</strong> Two records for the same customer split their history. Next time, you won't see what you fixed last spring, or what they paid.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Take a look at the work order</h2>
+    <p>Here's Maria's new work order. Select each numbered marker to learn what the field does.</p>
+    <div class="mock" id="mock1">
+      <div class="mock-bar"><span class="logo" aria-hidden="true">G</span>Gearloft<span class="crumb">/ Work orders / New</span></div>
+      <div class="mock-body">
+        <div class="fld"><div class="lab"><label>Customer</label><button class="hot" aria-expanded="false" aria-label="Marker 1: Customer" data-pop="p1">1</button></div><div class="box">Maria Lopez · (409) 555-0142</div>
+          <div class="pop" id="p1" role="dialog" aria-label="Customer" hidden><button aria-label="Close">&times;</button><strong>Customer</strong>Linked to Maria's existing record, so this job joins her history and her contact details fill in automatically.</div></div>
+        <div class="fld"><div class="lab"><label>Equipment</label><button class="hot" aria-expanded="false" aria-label="Marker 2: Equipment" data-pop="p2">2</button></div><div class="box">21-inch push mower</div>
+          <div class="pop" id="p2" role="dialog" aria-label="Equipment" hidden><button aria-label="Close">&times;</button><strong>Equipment</strong>The specific item in for service today. Maria also has a bike on file, so picking the right one matters.</div></div>
+        <div class="fld full"><div class="lab"><label>Problem description</label><button class="hot" aria-expanded="false" aria-label="Marker 3: Problem description" data-pop="p3">3</button></div><div class="box tall">Won't start after winter storage. Pull cord OK. Old fuel in tank.</div>
+          <div class="pop" id="p3" role="dialog" aria-label="Problem description" hidden><button aria-label="Close">&times;</button><strong>Problem description</strong>What's wrong, when it happens, and what's been checked. Anyone who picks up the job can start right away.</div></div>
+        <div class="fld full row"><div class="lab"><span class="badge">Open</span><button class="hot" aria-expanded="false" aria-label="Marker 4: Status" data-pop="p4">4</button>
+          <div class="pop up" id="p4" role="dialog" aria-label="Status" hidden><button aria-label="Close">&times;</button><strong>Status: Open</strong>The job is saved and ready for labor and parts. You'll move it to Approved, then Complete, as the job goes on.</div></div><span class="fake-btn">Save</span></div>
+      </div>
+    </div>
+    <p class="hint" aria-live="polite">0 of 4 markers explored</p>
+  </div>
+
+  <div class="block">
+    <h2>Vague or clear?</h2>
+    <p>Imagine picking up each of these jobs tomorrow morning. Select a card to see a stronger version.</p>
+    <div class="flips">
+      <button class="flip" aria-pressed="false"><div class="flip-inner">
+        <div class="face front"><span class="tag">Vague</span><q>Brake issue</q><span class="turn">Select to flip</span></div>
+        <div class="face back"><span class="tag">Clear</span><q>Rear brake squeals under load. Pads checked: 2 mm left.</q><span class="turn">What + when + what's checked</span></div>
+      </div></button>
+      <button class="flip" aria-pressed="false"><div class="flip-inner">
+        <div class="face front"><span class="tag">Vague</span><q>Won't start</q><span class="turn">Select to flip</span></div>
+        <div class="face back"><span class="tag">Clear</span><q>Won't start after winter storage. Pull cord OK, old fuel in tank.</q><span class="turn">What + when + what's checked</span></div>
+      </div></button>
+      <button class="flip" aria-pressed="false"><div class="flip-inner">
+        <div class="face front"><span class="tag">Vague</span><q>Customer says it's noisy</q><span class="turn">Select to flip</span></div>
+        <div class="face back"><span class="tag">Clear</span><q>Clicking from bottom bracket when pedaling hard. Started after a fall last week.</q><span class="turn">What + when + what's checked</span></div>
+      </div></button>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="statement">A clear description = <span>what's wrong</span> + <span>when it happens</span> + <span>what you've checked</span></p>
+  </div>
+
+  <div class="next">
+    <p>Maria's work order is open. Next, you'll add the labor and parts for her job.</p>
+    <a class="btn solid" href="#lesson-2" data-complete="lesson-1">Lesson 2: Add labor and parts</a>
+  </div>
+</section>
+
+<!-- ===================== LESSON 2 ===================== -->
+<section class="lesson" id="lesson-2" aria-labelledby="l2-title">
+  <header class="hero small photo l2">
+    <p class="kicker">Lesson 2 of 4</p>
+    <h1 id="l2-title">Add labor and parts</h1>
+    <p>If it isn't on the work order, it doesn't get paid.</p>
+  </header>
+
+  <div class="block">
+    <p class="lede">Everything you do and everything you use on a job belongs on the work order. That's what turns it into an accurate estimate now and an accurate invoice later.</p>
+    <p>Gearloft splits every job into two kinds of lines: <strong>labor</strong> (your time) and <strong>parts</strong> (what you install). Select each tab to compare them.</p>
+  </div>
+
+  <div class="block">
+    <div class="tabs" data-tabs>
+      <div class="tablist" role="tablist" aria-label="Line types">
+        <button role="tab" id="t-labor" aria-controls="tp-labor" aria-selected="true">Labor lines</button>
+        <button role="tab" id="t-parts" aria-controls="tp-parts" aria-selected="false" tabindex="-1">Parts lines</button>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="tp-labor" aria-labelledby="t-labor" tabindex="0">
+        <h3>Labor is your time</h3>
+        <ul class="checks">
+          <li>Add a labor line for each task: diagnosis, repair, and adjustments.</li>
+          <li>Enter the time in hours. 15 minutes is 0.25. Gearloft multiplies it by your shop's labor rate.</li>
+          <li>Short tasks count. Twenty minutes of adjusting is twenty minutes of skilled work.</li>
+        </ul>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="tp-parts" aria-labelledby="t-parts" tabindex="0" hidden>
+        <h3>Parts are what you install</h3>
+        <ul class="checks">
+          <li>Add parts from your inventory so the price fills in and your stock count drops automatically.</li>
+          <li>Add every part as you use it, not from memory at the end of the day.</li>
+          <li>Not in inventory? Add it as a one-time part with its cost and price.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Maria's job, line by line</h2>
+    <p>Here are the lines on Maria's work order so far. Select each numbered marker to learn more.</p>
+    <div class="mock" id="mock2">
+      <div class="mock-bar"><span class="logo" aria-hidden="true">G</span>Gearloft<span class="crumb">/ Work orders / #1047 Maria Lopez</span></div>
+      <div class="mock-body">
+        <div class="fld full"><div class="lab"><label>Labor</label><button class="hot" aria-expanded="false" aria-label="Marker 1: Labor lines" data-pop="p5">1</button></div>
+          <div class="lines"><div><span>Diagnose no-start · 0.25 hr</span><span>$20.00</span></div><div><span>Clean carburetor · 1.0 hr</span><span>$80.00</span></div></div>
+          <div class="pop" id="p5" role="dialog" aria-label="Labor lines" hidden><button aria-label="Close">&times;</button><strong>Labor lines</strong>Two tasks, two lines. The 15 minutes spent diagnosing is billable too. At Riverbend's $80/hour rate, that's $20.</div></div>
+        <div class="fld full"><div class="lab"><label>Parts</label><button class="hot" aria-expanded="false" aria-label="Marker 2: Parts lines" data-pop="p6">2</button></div>
+          <div class="lines"><div><span>Spark plug · qty 1</span><span>$6.50</span></div><div><span>Fuel filter · qty 1</span><span>$8.00</span></div></div>
+          <div class="pop" id="p6" role="dialog" aria-label="Parts lines" hidden><button aria-label="Close">&times;</button><strong>Parts lines</strong>Added from inventory, so prices fill in and Riverbend's stock count updates on its own.</div></div>
+        <div class="fld full row"><div class="lab"><span class="total">Estimate total: $114.50</span><button class="hot" aria-expanded="false" aria-label="Marker 3: Estimate total" data-pop="p7">3</button>
+          <div class="pop up" id="p7" role="dialog" aria-label="Estimate total" hidden><button aria-label="Close">&times;</button><strong>Estimate total</strong>Updates as you add lines. This is the number Maria will approve in the next lesson.</div></div><span class="fake-btn">+ Add line</span></div>
+      </div>
+    </div>
+    <p class="hint" aria-live="polite">0 of 3 markers explored</p>
+  </div>
+
+  <div class="block">
+    <h2>Billable or not?</h2>
+    <p>Sam did all of these today. Sort each one: is it a labor line, a parts line, or not billed to Maria?</p>
+    <div class="sort" data-sort>
+      <div class="sort-item" data-answer="labor" data-fb="Right. Draining fuel is part of the job and takes real time. It's one of the most commonly missed lines.">
+        <p class="sort-q">Draining the old fuel from Maria's mower (10 minutes)</p>
+        <div class="sort-opts"><button data-val="labor">Labor</button><button data-val="part">Part</button><button data-val="none">Not billed</button></div>
+        <p class="sort-fb" aria-live="polite"></p>
+      </div>
+      <div class="sort-item" data-answer="part" data-fb="Right. It came out of inventory and went into her mower.">
+        <p class="sort-q">A new spark plug from the parts shelf</p>
+        <div class="sort-opts"><button data-val="labor">Labor</button><button data-val="part">Part</button><button data-val="none">Not billed</button></div>
+        <p class="sort-fb" aria-live="polite"></p>
+      </div>
+      <div class="sort-item" data-answer="labor" data-fb="Right. Figuring out what's wrong is skilled work. Diagnosis time belongs on the work order.">
+        <p class="sort-q">Figuring out why the mower won't start (15 minutes)</p>
+        <div class="sort-opts"><button data-val="labor">Labor</button><button data-val="part">Part</button><button data-val="none">Not billed</button></div>
+        <p class="sort-fb" aria-live="polite"></p>
+      </div>
+      <div class="sort-item" data-answer="none" data-fb="Right. Sweeping up at closing isn't part of Maria's job, so it stays off her work order.">
+        <p class="sort-q">Sweeping the shop floor at closing time</p>
+        <div class="sort-opts"><button data-val="labor">Labor</button><button data-val="part">Part</button><button data-val="none">Not billed</button></div>
+        <p class="sort-fb" aria-live="polite"></p>
+      </div>
+    </div>
+    <p class="hint sort-score" aria-live="polite"></p>
+  </div>
+
+  <div class="block">
+    <div class="callout warn">
+      <strong class="tag">Watch for this</strong>
+      <p><strong>Small tasks are the ones that go missing.</strong> Diagnosis, draining fuel, a quick adjustment: each takes only minutes, but across a month they add up to hours of unpaid work. Add a line the moment you finish a task.</p>
+    </div>
+  </div>
+
+  <div class="next">
+    <p>Maria's estimate is ready. Next, you'll get her approval before you start work.</p>
+    <a class="btn solid" href="#lesson-3" data-complete="lesson-2">Lesson 3: Get approval</a>
+  </div>
+</section>
+
+<!-- ===================== LESSON 3 ===================== -->
+<section class="lesson" id="lesson-3" aria-labelledby="l3-title">
+  <header class="hero small photo l3">
+    <p class="kicker">Lesson 3 of 4</p>
+    <h1 id="l3-title">Get approval</h1>
+    <p>No surprises at pickup.</p>
+  </header>
+
+  <div class="block">
+    <p class="lede">Before you start work, the customer approves the estimate. It takes a minute, and it prevents the most uncomfortable conversation in any shop: "I never agreed to that."</p>
+    <p>In Gearloft, the work order status moves from <strong>Open</strong> to <strong>Approved</strong> when the customer says yes. That's your green light.</p>
+  </div>
+
+  <div class="block">
+    <h2>Three ways to get a yes</h2>
+    <p>Choose the one that fits how the customer is reaching you. Select each option to learn how it works.</p>
+    <div class="accordion">
+      <details>
+        <summary>By text link <span class="pill">Most common</span></summary>
+        <div>Click <strong>Send estimate by text</strong>. The customer gets a link, reviews the lines, and taps <strong>Approve</strong>. Gearloft changes the status to Approved and records the time on its own.</div>
+      </details>
+      <details>
+        <summary>In person at the counter</summary>
+        <div>Turn the screen toward the customer, walk through the estimate, and have them tap <strong>Approve</strong>. That works best when they're waiting while you diagnose.</div>
+      </details>
+      <details>
+        <summary>Over the phone</summary>
+        <div>Read the total and the main lines out loud. When they agree, click <strong>Record approval</strong> and note who approved, the amount, and the time. Never skip the note; it's your only record.</div>
+      </details>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>What would you do?</h2>
+    <div class="scenario">
+      <div class="avatar" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2e6b4f" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+      </div>
+      <div>
+        <p>Maria approved the $114.50 estimate by text this morning. Halfway through the job, Sam finds a cracked carburetor gasket. Replacing it adds a $12 part and 0.5 hours of labor, so the new total is <strong>$166.50</strong>.</p>
+        <p><strong>What should Sam do?</strong></p>
+      </div>
+    </div>
+    <div class="choices" data-choices>
+      <button data-correct="false" data-fb="Not quite. The work is needed, but Maria approved $114.50. A higher bill she never agreed to is how disputes at pickup start.">Replace the gasket. Maria wants her mower fixed.</button>
+      <button data-correct="true" data-fb="That's it. Add the new lines, send the updated estimate, and wait for her approval. Gearloft moves the job back to Approved when she says yes.">Add the lines, send Maria the updated estimate, and wait for her approval.</button>
+      <button data-correct="false" data-fb="Not quite. Telling her at pickup is still a surprise, and she has no chance to say no. Get approval before the work, not after.">Replace the gasket and explain the extra cost when she picks it up.</button>
+    </div>
+    <p class="choice-fb" aria-live="polite"></p>
+  </div>
+
+  <div class="block">
+    <div class="callout warn">
+      <strong class="tag">Important</strong>
+      <p><strong>Don't start work until the status says Approved.</strong> If the price changes mid-job, update the estimate and get approval again before you continue.</p>
+    </div>
+  </div>
+
+  <div class="next">
+    <p>Maria approved the new total. Next, you'll finish the job and send her invoice.</p>
+    <a class="btn solid" href="#lesson-4" data-complete="lesson-3">Lesson 4: Complete and invoice</a>
+  </div>
+</section>
+
+<!-- ===================== LESSON 4 ===================== -->
+<section class="lesson" id="lesson-4" aria-labelledby="l4-title">
+  <header class="hero small photo l4">
+    <p class="kicker">Lesson 4 of 4</p>
+    <h1 id="l4-title">Complete and invoice</h1>
+    <p>Finish the job and get paid for all of it.</p>
+  </header>
+
+  <div class="block">
+    <p class="lede">You don't have to build the invoice. Gearloft makes it from the work order. Your job is to make sure the work order is complete and correct before it goes out.</p>
+  </div>
+
+  <div class="block">
+    <h2>From finished job to sent invoice</h2>
+    <div class="process">
+      <div class="process-top"><span aria-live="polite">Step 1 of 4</span><div class="dots" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span></div></div>
+      <div class="step on">
+        <div class="label">Step 1</div>
+        <h3>Check every line</h3>
+        <p>Compare the work order to what you actually did. Is every task a labor line, and is every part you used a parts line?</p>
+      </div>
+      <div class="step">
+        <div class="label">Step 2</div>
+        <h3>Mark the job complete</h3>
+        <p>Click <strong>Mark complete</strong>. The status changes to Complete, and Gearloft builds the invoice from the work order.</p>
+      </div>
+      <div class="step">
+        <div class="label">Step 3</div>
+        <h3>Review the invoice</h3>
+        <p>Check the customer's contact details and the total, and add a short note if it helps, like care tips for the customer.</p>
+      </div>
+      <div class="step">
+        <div class="label">Step 4</div>
+        <h3>Send it</h3>
+        <p>Click <strong>Send invoice</strong>. The customer gets a text or email with a link to pay. After it's sent, the invoice is locked, so check before you click.</p>
+      </div>
+      <div class="process-nav">
+        <button type="button" data-dir="-1" disabled>Back</button>
+        <button type="button" data-dir="1" class="primary">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Maria's invoice</h2>
+    <p>Here's the invoice Gearloft built from the work order. Select each numbered marker to learn more.</p>
+    <div class="mock" id="mock4">
+      <div class="mock-bar"><span class="logo" aria-hidden="true">G</span>Gearloft<span class="crumb">/ Invoices / INV-1047</span></div>
+      <div class="mock-body">
+        <div class="fld full row"><div class="lab"><span><strong>Riverbend Cycle &amp; Small Engine</strong><br><span class="sub">Bill to: Maria Lopez · (409) 555-0142</span></span><button class="hot" aria-expanded="false" aria-label="Marker 1: Customer details" data-pop="p8">1</button>
+          <div class="pop" id="p8" role="dialog" aria-label="Customer details" hidden><button aria-label="Close">&times;</button><strong>Customer details</strong>Pulled from Maria's record. Make sure her phone and email are current, because that's where the invoice goes.</div></div><span class="badge">Ready to send</span></div>
+        <div class="fld full"><div class="lab"><label>Lines</label><button class="hot" aria-expanded="false" aria-label="Marker 2: Invoice lines" data-pop="p9">2</button></div>
+          <div class="lines"><div><span>Diagnose no-start · 0.25 hr</span><span>$20.00</span></div><div><span>Clean carburetor · 1.0 hr</span><span>$80.00</span></div><div><span>Replace carburetor gasket · 0.5 hr</span><span>$40.00</span></div><div><span>Spark plug · Fuel filter · Gasket</span><span>$26.50</span></div><div class="sum"><span>Total</span><span>$166.50</span></div></div>
+          <div class="pop" id="p9" role="dialog" aria-label="Invoice lines" hidden><button aria-label="Close">&times;</button><strong>Invoice lines</strong>Every line comes from the work order, including the gasket Maria approved mid-job. The total matches the estimate she approved.</div></div>
+        <div class="fld full"><div class="lab"><label>Note to customer</label><button class="hot" aria-expanded="false" aria-label="Marker 3: Note to customer" data-pop="p10">3</button></div><div class="box">Old fuel caused the no-start. Use fresh fuel and add stabilizer before winter storage.</div>
+          <div class="pop up" id="p10" role="dialog" aria-label="Note to customer" hidden><button aria-label="Close">&times;</button><strong>Note to customer</strong>Optional, but customers value it. A one-line tip shows expertise and can prevent a repeat visit for the same problem.</div></div>
+        <div class="full row"><span></span><span class="fake-btn">Send invoice</span></div>
+      </div>
+    </div>
+    <p class="hint" aria-live="polite">0 of 3 markers explored</p>
+  </div>
+
+  <div class="block">
+    <h2>Before you click Send</h2>
+    <ul class="checks">
+      <li>Every task is a labor line, including diagnosis and small adjustments.</li>
+      <li>Every part you used is a parts line.</li>
+      <li>The total matches what the customer approved.</li>
+      <li>The customer's phone number or email is correct.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <p class="statement">Check it, <span>complete it</span>, then <span>send it</span>. A sent invoice is locked.</p>
+  </div>
+
+  <div class="next">
+    <p>You've taken Maria's job from start to finish. Next, practice the whole workflow yourself.</p>
+    <a class="btn solid" href="#lesson-5" data-complete="lesson-4">Practice and check</a>
+  </div>
+</section>
+
+<!-- ===================== LESSON 5 ===================== -->
+<section class="lesson" id="lesson-5" aria-labelledby="l5-title">
+  <header class="hero small photo l5">
+    <p class="kicker">Practice and check</p>
+    <h1 id="l5-title">Your turn</h1>
+    <p>Run Maria's job yourself from start to finish, then check what you know.</p>
+  </header>
+
+  <div class="block">
+    <h2>Practice: Maria's mower, start to finish</h2>
+    <p>This is a safe practice version of Gearloft. Nothing you click here is real, so explore. Choose how much help you want:</p>
+    <div class="mode" role="radiogroup" aria-label="Practice mode">
+      <button role="radio" aria-checked="true" data-mode="guided"><strong>Guided</strong><span>A prompt tells you what to do at each step.</span></button>
+      <button role="radio" aria-checked="false" data-mode="try"><strong>Try it</strong><span>No prompts. You'll get a hint after two wrong clicks.</span></button>
+    </div>
+    <div class="sim" id="sim">
+      <div class="sim-head">
+        <span id="simStep">Step 1 of 10</span>
+        <button type="button" class="sim-restart" id="simRestart">Restart</button>
+      </div>
+      <p class="sim-prompt" id="simPrompt" aria-live="polite"></p>
+      <div class="mock sim-app">
+        <div class="mock-bar"><span class="logo" aria-hidden="true">G</span>Gearloft<span class="crumb" id="simCrumb"></span></div>
+        <div class="sim-screen" id="simScreen"></div>
+      </div>
+      <p class="sim-fb" id="simFb" aria-live="assertive"></p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Knowledge check</h2>
+    <p>Five questions, all at Riverbend's counter. Answer each one, then submit. You need 4 of 5 to pass, and you can retry as many times as you like.</p>
+    <form class="kc" id="kc" novalidate>
+      <fieldset class="kc-q" data-answer="b">
+        <legend><span class="kc-n">1</span>A regular customer walks in with a bike that has a flat. What do you do first in Gearloft?</legend>
+        <label><input type="radio" name="q1" value="a"> Click Add customer and enter their details</label>
+        <label><input type="radio" name="q1" value="b"> Search for the customer before creating anything</label>
+        <label><input type="radio" name="q1" value="c"> Start a work order with no customer attached</label>
+        <p class="kc-fb" data-ok="Correct. Searching first keeps their history in one place." data-no="Not quite. Search first: a duplicate record splits the customer's history."></p>
+      </fieldset>
+      <fieldset class="kc-q" data-answer="c">
+        <legend><span class="kc-n">2</span>Which problem description helps most if someone else finishes this job?</legend>
+        <label><input type="radio" name="q2" value="a"> "Brake issue"</label>
+        <label><input type="radio" name="q2" value="b"> "Customer says it's noisy"</label>
+        <label><input type="radio" name="q2" value="c"> "Rear brake squeals under load. Pads checked: 2 mm left."</label>
+        <p class="kc-fb" data-ok="Correct. It says what's wrong, when, and what's been checked." data-no="Not quite. Look for the one that covers what's wrong, when it happens, and what's been checked."></p>
+      </fieldset>
+      <fieldset class="kc-q" data-answer="c">
+        <legend><span class="kc-n">3</span>You replaced a chain and spent 20 minutes adjusting the derailleur. What belongs on the work order?</legend>
+        <label><input type="radio" name="q3" value="a"> The chain only</label>
+        <label><input type="radio" name="q3" value="b"> Labor for the adjustment only</label>
+        <label><input type="radio" name="q3" value="c"> The chain as a part, plus labor for the install and the adjustment</label>
+        <p class="kc-fb" data-ok="Correct. Small adjustments are billable time, and they're the most commonly missed line." data-no="Not quite. The part and all the time you spent both belong on the work order."></p>
+      </fieldset>
+      <fieldset class="kc-q" data-answer="b">
+        <legend><span class="kc-n">4</span>The repair will cost more than the customer expected. When do you start work?</legend>
+        <label><input type="radio" name="q4" value="a"> Right away, since the work is needed</label>
+        <label><input type="radio" name="q4" value="b"> After the customer approves the updated estimate</label>
+        <label><input type="radio" name="q4" value="c"> After the work, when you call about pickup</label>
+        <p class="kc-fb" data-ok="Correct. Approval first prevents disputes at pickup." data-no="Not quite. Get approval on the new total before you do the extra work."></p>
+      </fieldset>
+      <fieldset class="kc-q" data-answer="a">
+        <legend><span class="kc-n">5</span>Before you send an invoice, what should you check?</legend>
+        <label><input type="radio" name="q5" value="a"> That all labor and parts are on it and the job is marked complete</label>
+        <label><input type="radio" name="q5" value="b"> Only the customer's phone number</label>
+        <label><input type="radio" name="q5" value="c"> Nothing. Gearloft checks it for you.</label>
+        <p class="kc-fb" data-ok="Correct. A sent invoice is locked, so check it first." data-no="Not quite. A sent invoice is locked, so check every line and the job status first."></p>
+      </fieldset>
+      <div class="kc-actions">
+        <button type="submit" class="btn solid">Submit answers</button>
+        <button type="button" class="btn ghost" id="kcRetry" hidden>Try again</button>
+      </div>
+      <p class="kc-result" id="kcResult" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="block finish" id="finish" hidden>
+    <div class="done-card">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#2e6b4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>
+      <h2>Course complete</h2>
+      <p>You can now take any job in Gearloft from the counter to a sent invoice:</p>
+      <ol class="numlist">
+        <li>Start the work order: search for the customer, pick the equipment, and describe the problem clearly.</li>
+        <li>Add every labor and parts line, including the small tasks.</li>
+        <li>Get approval before you start, and again if the price changes.</li>
+        <li>Check it, complete it, then send the invoice.</li>
+      </ol>
+      <p><a class="btn solid" href="jobaid.html" target="_blank" rel="noopener">Open the printable job aid</a></p>
+    </div>
+  </div>
+  <p class="credit">Sample course by Eric D. Jones. Gearloft, Riverbend Cycle &amp; Small Engine, and all people and screens are fictional. Photos: free stock images.</p>
+</section>
+</main>
+
+<script>
+(function(){
+  var ids=["welcome","lesson-1","lesson-2","lesson-3","lesson-4","lesson-5"];
+  var KEY="gearloft-sample-progress";
+  var done={};
+  try{done=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){done={}}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+  function render(){
+    var n=ids.filter(function(i){return done[i]}).length;
+    var pct=Math.round(n/ids.length*100);
+    document.getElementById("progBar").style.width=pct+"%";
+    document.getElementById("progLabel").textContent=pct+"% complete";
+    document.querySelector(".prog").setAttribute("aria-valuenow",pct);
+    document.querySelectorAll("#menu a[data-id]").forEach(function(a){a.parentNode.classList.toggle("done",!!done[a.dataset.id])});
+  }
+  function complete(id){if(!done[id]){done[id]=true;save();render()}}
+  function show(){
+    var id=(location.hash||"#welcome").slice(1);
+    if(!document.getElementById(id)||!document.getElementById(id).classList.contains("lesson"))id="welcome";
+    document.querySelectorAll(".lesson").forEach(function(s){s.classList.toggle("active",s.id===id)});
+    document.querySelectorAll("#menu a[data-id]").forEach(function(a){
+      if(a.dataset.id===id)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+    window.scrollTo(0,0);
+    document.body.classList.remove("menu-open");
+    document.getElementById("menuBtn").setAttribute("aria-expanded","false");
+  }
+  window.addEventListener("hashchange",function(){show();document.getElementById("content").focus({preventScroll:true})});
+  document.querySelectorAll("[data-complete]").forEach(function(b){b.addEventListener("click",function(){complete(b.dataset.complete)})});
+  // complete a lesson when its last section scrolls into view
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){var s=e.target.closest(".lesson");if(s&&s.classList.contains("active"))complete(s.id)}})},{threshold:.6});
+    document.querySelectorAll(".lesson .next").forEach(function(n){io.observe(n)});
+  }
+  // mobile menu
+  var mb=document.getElementById("menuBtn");
+  mb.addEventListener("click",function(){var o=document.body.classList.toggle("menu-open");mb.setAttribute("aria-expanded",o)});
+  document.getElementById("scrim").addEventListener("click",function(){document.body.classList.remove("menu-open");mb.setAttribute("aria-expanded","false")});
+
+  // process step-through
+  document.querySelectorAll(".process").forEach(function(p){
+    var steps=p.querySelectorAll(".step"),dots=p.querySelectorAll(".dots span"),i=0;
+    var back=p.querySelector('[data-dir="-1"]'),next=p.querySelector('[data-dir="1"]'),count=p.querySelector('[aria-live]');
+    function go(k){i=Math.max(0,Math.min(steps.length-1,k));
+      steps.forEach(function(s,j){s.classList.toggle("on",j===i)});dots.forEach(function(d,j){d.classList.toggle("on",j<=i)});
+      back.disabled=i===0;next.textContent=i===steps.length-1?"Start over":"Next";
+      count.textContent="Step "+(i+1)+" of "+steps.length;}
+    back.addEventListener("click",function(){go(i-1)});
+    next.addEventListener("click",function(){go(i===steps.length-1?0:i+1)});
+  });
+
+  // hotspots (scoped per mock screen)
+  function closeAll(except){document.querySelectorAll(".hot").forEach(function(h){if(h!==except){h.setAttribute("aria-expanded","false");document.getElementById(h.dataset.pop).hidden=true}})}
+  document.querySelectorAll(".mock").forEach(function(m){
+    var hots=m.querySelectorAll(".hot"),hint=m.nextElementSibling,seen={};
+    hots.forEach(function(h){
+      var pop=document.getElementById(h.dataset.pop);
+      h.addEventListener("click",function(){var open=h.getAttribute("aria-expanded")==="true";closeAll(h);
+        h.setAttribute("aria-expanded",!open);pop.hidden=open;h.classList.add("seen");seen[h.dataset.pop]=1;
+        var n=Object.keys(seen).length;if(hint)hint.textContent=n===hots.length?"Nice: you've explored all "+n+" markers.":n+" of "+hots.length+" markers explored";
+        if(!open)pop.querySelector("button").focus();});
+      pop.querySelector("button").addEventListener("click",function(){h.setAttribute("aria-expanded","false");pop.hidden=true;h.focus()});
+    });
+  });
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){var o=document.querySelector('.hot[aria-expanded="true"]');closeAll();if(o)o.focus()}});
+
+  // tabs
+  document.querySelectorAll("[data-tabs]").forEach(function(t){
+    var tabs=[].slice.call(t.querySelectorAll('[role="tab"]'));
+    function sel(i){tabs.forEach(function(b,j){var on=i===j;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1;document.getElementById(b.getAttribute("aria-controls")).hidden=!on});tabs[i].focus()}
+    tabs.forEach(function(b,i){b.addEventListener("click",function(){sel(i)});
+      b.addEventListener("keydown",function(e){if(e.key==="ArrowRight")sel((i+1)%tabs.length);if(e.key==="ArrowLeft")sel((i-1+tabs.length)%tabs.length)})});
+  });
+
+  // sorting activity
+  document.querySelectorAll("[data-sort]").forEach(function(sw){
+    var items=sw.querySelectorAll(".sort-item"),score=sw.nextElementSibling;
+    items.forEach(function(it){var fb=it.querySelector(".sort-fb");
+      it.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){
+        it.querySelectorAll("button").forEach(function(x){x.classList.remove("right","wrong")});
+        var ok=b.dataset.val===it.dataset.answer;b.classList.add(ok?"right":"wrong");
+        fb.textContent=ok?it.dataset.fb:"Not quite. Think about whether it's time spent on this job, something installed, or neither. Try again.";
+        if(ok)it.dataset.done=1;
+        var d=sw.querySelectorAll('.sort-item[data-done]').length;
+        score.textContent=d===items.length?"All "+d+" sorted correctly.":d+" of "+items.length+" sorted correctly";
+      })})});
+  });
+
+  // single-choice scenario
+  document.querySelectorAll("[data-choices]").forEach(function(c){var fb=c.nextElementSibling;
+    c.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){
+      c.querySelectorAll("button").forEach(function(x){x.classList.remove("right","wrong")});
+      b.classList.add(b.dataset.correct==="true"?"right":"wrong");fb.textContent=b.dataset.fb;})})});
+
+  // flip cards
+  document.querySelectorAll(".flip").forEach(function(f){f.addEventListener("click",function(){
+    f.setAttribute("aria-pressed",f.getAttribute("aria-pressed")!=="true")})});
+
+
+  // ---------- practice simulation ----------
+  (function(){
+    var scr=document.getElementById("simScreen");if(!scr)return;
+    var stepEl=document.getElementById("simStep"),promptEl=document.getElementById("simPrompt"),fbEl=document.getElementById("simFb"),crumb=document.getElementById("simCrumb");
+    var mode="guided",i=0,wrong=0,sel={},picked=null,approved=false,timer=null;
+    function money(n){return "$"+n.toFixed(2)}
+    function lines(rows,total){return '<div class="lines">'+rows.map(function(r){return '<div><span>'+r[0]+'</span><span>'+money(r[1])+'</span></div>'}).join("")+(total?'<div class="sum"><span>'+total[0]+'</span><span>'+money(total[1])+'</span></div>':"")+'</div>'}
+    var L=[["Diagnose no-start · 0.25 hr",20],["Clean carburetor · 1.0 hr",80],["Spark plug · qty 1",6.5],["Fuel filter · qty 1",8]];
+    function pickList(items){return '<div class="sim-picks">'+items.map(function(it){return '<button class="pick" aria-pressed="false" data-act="toggle" data-v="'+it[0]+'"><span>'+it[1]+'</span><span>'+it[2]+'</span></button>'}).join("")+'</div>'}
+    var steps=[
+      {crumb:"/ Dashboard",task:"Start a new job for Maria.",prompt:"Click <strong>+ New Work Order</strong>.",wrong:"Every job starts from a work order. Look at the top of the dashboard.",
+       html:function(){return '<div class="sim-row"><h4>Today at Riverbend</h4><button class="sbtn primary" data-act="ok">+ New Work Order</button></div>'+
+        '<div class="sim-list"><button data-act="x">#1045 · Dan Ortiz · Road bike tune-up<span class="badge">In progress</span></button><button data-act="x">#1046 · Priya Shah · String trimmer<span class="badge">Approved</span></button></div>'+
+        '<div class="sim-row"><span></span><span><button class="sbtn" data-act="x">Customers</button> <button class="sbtn" data-act="x">Invoices</button></span></div>'}},
+      {crumb:"/ Work orders / New",task:"Find Maria's customer record.",prompt:"Type <strong>Lopez</strong> in the search box, then select <strong>Maria Lopez</strong>.",wrong:"Search for Maria first.",
+       html:function(){return '<label class="sim-label" for="simSearch">Search customers by name or phone</label><input id="simSearch" class="sim-input" autocomplete="off" placeholder="e.g. Lopez">'+
+        '<div class="sim-list" id="simResults"><p class="sim-empty">Type at least 2 letters to search.</p></div>'+
+        '<div class="sim-row"><span></span><button class="sbtn" data-act="x" data-msg="Search first so you don\'t create a duplicate customer.">+ Add customer</button></div>'},
+       after:function(){var inp=document.getElementById("simSearch"),res=document.getElementById("simResults");
+        var C=[["Maria Lopez","(409) 555-0142 · 2 items on file","ok",""],["Marco Lopes","(409) 555-0199 · 1 item on file","x","Check the name and phone number. That's a different customer."],["Dan Ortiz","(409) 555-0110","x","That's not Maria."],["Priya Shah","(409) 555-0173","x","That's not Maria."]];
+        inp.addEventListener("input",function(){var q=inp.value.trim().toLowerCase();
+          if(q.length<2){res.innerHTML='<p class="sim-empty">Type at least 2 letters to search.</p>';return}
+          var m=C.filter(function(c){return c[0].toLowerCase().indexOf(q)>-1||c[1].indexOf(q)>-1});
+          res.innerHTML=m.length?m.map(function(c){return '<button data-act="'+c[2]+'" data-msg="'+c[3]+'"><strong>'+c[0]+'</strong><span class="sub">'+c[1]+'</span></button>'}).join(""):'<p class="sim-empty">No customers found. Check the spelling.</p>'});}},
+      {crumb:"/ Work orders / New / Maria Lopez",task:"Choose what Maria brought in today.",prompt:"Select the <strong>21-inch push mower</strong>.",wrong:"Pick the item she brought in today.",
+       html:function(){return '<p class="sim-label">Maria\'s equipment on file</p><div class="sim-list"><button data-act="x" data-msg="Pick the item she brought in today, not her bike on file.">Trail bike<span class="sub">Added 2025</span></button><button data-act="ok">21-inch push mower<span class="sub">Added 2026</span></button></div>'+
+        '<div class="sim-row"><span></span><button class="sbtn" data-act="x" data-msg="The mower is already on file. Pick it from her list.">+ Add equipment</button></div>'}},
+      {crumb:"/ Work orders / New / Maria Lopez",task:"Describe the problem and save the work order.",prompt:"Choose the clearest description, then click <strong>Save</strong>.",wrong:"Choose a description, then save.",
+       html:function(){return '<p class="sim-label">Problem description</p><div class="sim-picks single">'+
+        [["a","Won't start."],["b","Customer says it's broken."],["c","Won't start after winter storage. Pull cord OK, old fuel in tank."]].map(function(o){return '<button class="pick" aria-pressed="false" data-act="pick" data-v="'+o[0]+'"><span>'+o[1]+'</span></button>'}).join("")+
+        '</div><div class="sim-row"><span></span><button class="sbtn primary" data-act="check">Save</button></div>'},
+       check:function(){if(!picked)return "Choose a description first.";if(picked!=="c")return "A good description says what's wrong, when it happens, and what you've checked.";}},
+      {crumb:"/ Work orders / #1047 / Add labor",task:"Add the labor for this job.",prompt:"Select <strong>both</strong> tasks Sam did (diagnosis and carburetor cleaning), then click <strong>Add selected</strong>.",wrong:"Select the labor, then add it.",
+       html:function(){return '<p class="sim-label">Labor · Riverbend rate $80/hr</p>'+pickList([["d","Diagnose no-start · 0.25 hr","$20.00"],["c","Clean carburetor · 1.0 hr","$80.00"],["b","Replace brake pads · 0.5 hr","$40.00"],["t","Full tune-up · 1.5 hr","$120.00"]])+
+        '<div class="sim-row"><span></span><button class="sbtn primary" data-act="check">Add selected</button></div>'},
+       check:function(){if(sel.b||sel.t)return "Only add work you actually did on Maria's mower.";if(!sel.d)return "Diagnosis time is billable. Did you include it?";if(!sel.c)return "The carburetor cleaning is the main repair. Add it.";}},
+      {crumb:"/ Work orders / #1047 / Add parts",task:"Add the parts you used.",prompt:"Select the <strong>spark plug</strong> and the <strong>fuel filter</strong>, then click <strong>Add selected</strong>.",wrong:"Select the parts, then add them.",
+       html:function(){return '<p class="sim-label">Inventory</p>'+pickList([["s","Spark plug","$6.50"],["f","Fuel filter","$8.00"],["ch","Bike chain","$24.00"],["a","Air filter","$9.00"]])+
+        '<div class="sim-row"><span></span><button class="sbtn primary" data-act="check">Add selected</button></div>'},
+       check:function(){if(sel.ch||sel.a)return "Only add parts you installed: a spark plug and a fuel filter.";if(!sel.s||!sel.f)return "Two parts were used on this job. Check your list.";}},
+      {crumb:"/ Work orders / #1047",task:"Get Maria's okay on the price.",prompt:"Click <strong>Send estimate by text</strong>.",wrong:"The customer approves before work begins.",
+       html:function(){return '<div class="sim-row"><h4>Estimate · Maria Lopez</h4><span class="badge">Open</span></div>'+lines(L,["Estimate total",114.5])+
+        '<div class="sim-row"><button class="sbtn" data-act="x" data-msg="The customer approves before work begins.">Start work</button><button class="sbtn primary" data-act="ok">Send estimate by text</button></div>'}},
+      {crumb:"/ Work orders / #1047",task:"Start the work once Maria approves.",prompt:"Wait for the status to change to <strong>Approved</strong>, then click <strong>Start work</strong>.",wrong:"Wait for Maria's approval. The status will change to Approved.",
+       html:function(){return '<div class="sim-row"><h4>Estimate sent to Maria by text</h4><span class="badge wait" id="simStatus">Waiting</span></div><p id="simNote" class="sim-empty">Waiting for Maria to review the estimate…</p>'+
+        '<div class="sim-row"><span></span><button class="sbtn primary" data-act="start" aria-disabled="true" id="simStart">Start work</button></div>'},
+       after:function(){approved=false;timer=setTimeout(function(){approved=true;var s=document.getElementById("simStatus");if(!s)return;s.textContent="Approved";s.classList.remove("wait");
+        document.getElementById("simNote").textContent="Maria approved $114.50 by text at 10:42 AM.";document.getElementById("simStart").removeAttribute("aria-disabled");fbEl.textContent="";},1800);}},
+      {crumb:"/ Work orders / #1047",task:"Finish the job.",prompt:"The repair is done. Click <strong>Mark complete</strong>.",wrong:"Finish the job first.",
+       html:function(){return '<div class="sim-row"><h4>Work order #1047 · 21-inch push mower</h4><span class="badge">In progress</span></div>'+lines(L,["Total",114.5])+
+        '<div class="sim-row"><button class="sbtn" data-act="x" data-msg="Mark the job complete first. That\'s what builds the invoice.">Send invoice</button><button class="sbtn primary" data-act="ok">Mark complete</button></div>'}},
+      {crumb:"/ Invoices / INV-1047",task:"Send Maria her invoice.",prompt:"Review the lines and total, then click <strong>Send invoice</strong>.",wrong:"Review the invoice, then send it.",
+       html:function(){return '<div class="sim-row"><h4>Invoice INV-1047 · Maria Lopez</h4><span class="badge">Ready to send</span></div>'+lines(L,["Total",114.5])+
+        '<div class="sim-row"><button class="sbtn" data-act="x" data-msg="The invoice isn\'t sent yet. Review it and send it.">Back to dashboard</button><button class="sbtn primary" data-act="ok">Send invoice</button></div>'}}
+    ];
+    function render(){
+      clearTimeout(timer);wrong=0;sel={};picked=null;fbEl.textContent="";fbEl.className="sim-fb";
+      if(i>=steps.length){stepEl.textContent="Complete";crumb.textContent="/ Invoices / INV-1047";promptEl.innerHTML="";
+        scr.innerHTML='<div class="sim-done"><span class="badge">Sent</span><h4>Invoice sent to Maria Lopez · $114.50</h4><p>Nice work. You:</p><ul class="checks"><li>Found Maria\'s record instead of creating a duplicate</li><li>Picked the right equipment and wrote a clear description</li><li>Captured every labor and parts line, including diagnosis</li><li>Got approval before starting, then completed and invoiced the job</li></ul><button class="sbtn primary" data-act="restart">Run it again</button></div>';
+        markDone();return}
+      var s=steps[i];stepEl.textContent="Step "+(i+1)+" of "+steps.length;crumb.textContent=s.crumb;
+      promptEl.innerHTML=mode==="guided"?s.prompt:'<span class="sub">Your task:</span> '+s.task;
+      scr.innerHTML=s.html();if(s.after)s.after();
+    }
+    var simDone=false;function markDone(){simDone=true}
+    function bad(msg){wrong++;var s=steps[i];var t=msg||s.wrong;
+      if(mode==="try"&&wrong>=2)t+=' <span class="hint-line">Hint: '+s.prompt+'</span>';
+      fbEl.className="sim-fb bad";fbEl.innerHTML=t;}
+    function next(){i++;render();var f=scr.querySelector("input,button");if(f)f.focus({preventScroll:true})}
+    scr.addEventListener("click",function(e){var b=e.target.closest("[data-act]");if(!b)return;var a=b.dataset.act,s=steps[i];
+      if(a==="restart"){i=0;render();return}
+      if(a==="ok")return next();
+      if(a==="x")return bad(b.dataset.msg);
+      if(a==="toggle"){var on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);sel[b.dataset.v]=on;return}
+      if(a==="pick"){scr.querySelectorAll('[data-act="pick"]').forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");picked=b.dataset.v;return}
+      if(a==="check"){var m=s.check();return m?bad(m):next()}
+      if(a==="start"){return approved?next():bad()}
+    });
+    document.querySelectorAll(".mode button").forEach(function(b){b.addEventListener("click",function(){
+      document.querySelectorAll(".mode button").forEach(function(x){x.setAttribute("aria-checked",x===b)});mode=b.dataset.mode;i=0;render();})});
+    document.getElementById("simRestart").addEventListener("click",function(){i=0;render()});
+    render();
+  })();
+
+  // ---------- knowledge check ----------
+  (function(){
+    var f=document.getElementById("kc");if(!f)return;var res=document.getElementById("kcResult"),retry=document.getElementById("kcRetry"),fin=document.getElementById("finish");
+    f.addEventListener("submit",function(e){e.preventDefault();
+      var qs=f.querySelectorAll(".kc-q"),score=0,missing=0;
+      qs.forEach(function(q){if(!q.querySelector("input:checked"))missing++});
+      if(missing){res.className="kc-result";res.textContent="Answer all 5 questions before you submit.";return}
+      qs.forEach(function(q){var c=q.querySelector("input:checked"),ok=c.value===q.dataset.answer,fb=q.querySelector(".kc-fb");
+        if(ok)score++;q.classList.add(ok?"ok":"no");fb.textContent=ok?fb.dataset.ok:fb.dataset.no;
+        q.querySelectorAll("input").forEach(function(x){x.disabled=true})});
+      f.querySelector('[type="submit"]').hidden=true;
+      if(score>=4){res.className="kc-result pass";res.textContent="You scored "+score+" of 5. You passed!";complete("lesson-5");fin.hidden=false;retry.hidden=score===5;}
+      else{res.className="kc-result fail";res.textContent="You scored "+score+" of 5. You need 4 to pass. Review the feedback, then try again.";retry.hidden=false;}
+    });
+    retry.addEventListener("click",function(){f.reset();f.querySelectorAll(".kc-q").forEach(function(q){q.classList.remove("ok","no");q.querySelector(".kc-fb").textContent="";q.querySelectorAll("input").forEach(function(x){x.disabled=false})});
+      f.querySelector('[type="submit"]').hidden=false;retry.hidden=true;res.textContent="";f.querySelector("input").focus();});
+  })();
+
+  render();show();
+})();
+</script>
+</body>
+</html>

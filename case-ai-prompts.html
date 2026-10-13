@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI in the design workflow | Eric D. Jones</title>
+<meta name="description" content="How Eric D. Jones built a 15-prompt AI toolkit with guardrails so two instructional designers could build consistent courses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<div class="topnav"><div class="wrap"><a href="index.html">Eric D. Jones</a><a href="index.html#work">All work samples</a></div></div>
+<main class="wrap">
+<header class="case">
+  <p class="eyebrow">Case study · Fullbay</p>
+  <h1>AI in the design workflow</h1>
+  <p class="lede">Two instructional designers using AI their own way meant two different results. I wrote a shared toolkit of 15 prompts with guardrails built in, so every AI-assisted build came out consistent, accurate and in one voice.</p>
+  <dl class="glance"><div><dt>Role</dt><dd>L&D AI Champion</dd></div><div><dt>Scope</dt><dd>15 prompts, 8 categories</dd></div><div><dt>Users</dt><dd>Instructional design team</dd></div><div><dt>Used for</dt><dd>Every AI-assisted build</dd></div><div><dt>Result</dt><dd>One consistent voice</dd></div></dl>
+</header>
+
+<section>
+  <h2>The challenge</h2>
+  <p>Fullbay's L&amp;D team had two instructional designers and two technical writers. The writers had built a prompt cheat sheet for their own work, and I was asked to create the instructional design version.</p>
+  <p>The real problem wasn't speed. When each designer prompts AI their own way, the courses drift: different structure, different tone, different reading level, and a real risk of AI inventing steps that don't exist in the product.</p>
+</section>
+<section>
+  <h2>My role</h2>
+  <p>As L&amp;D's AI Champion, I designed and wrote all 15 instructional design prompts, organized them by stage of the course-building process, and added a "what it does" note and a pro tip to each so anyone could pick one up and use it well.</p>
+</section>
+<section>
+  <h2>The approach</h2>
+  <ol class="decisions">
+    <li><strong>Organize by workflow, not by tool.</strong> Prompts follow the order a course is built, from planning to final QA, so a designer reaches for the right one at the right moment.</li>
+    <li><strong>Build the standards into the prompts.</strong> Each prompt carries the team's rules with it, so the guardrails apply every time without anyone having to remember them.</li>
+    <li><strong>Make AI check the work, too.</strong> Several prompts don't create anything. They audit: objective-to-assessment alignment, source accuracy and readability.</li>
+  </ol>
+  <figure class="figure">
+    <p class="lane">8 categories, in build order</p>
+    <div class="cats">
+      <div>Course planning &amp; design<small>Outlines, objectives</small></div>
+      <div>Storyboarding &amp; development<small>Rise storyboards</small></div>
+      <div>Assessments &amp; practice<small>Questions, alignment checks</small></div>
+      <div>Content transformation<small>Articles and SME notes to training</small></div>
+      <div>eLearning migration<small>Legacy course reviews, source checks</small></div>
+      <div>QA &amp; reviews<small>Readability, reviewer feedback</small></div>
+      <div>Stakeholder communication<small>Project updates</small></div>
+      <div>Rise 360 optimization<small>Block and interaction choices</small></div>
+    </div>
+  </figure>
+  <h3>The guardrails</h3>
+  <ul>
+    <li><strong>Use only the source material provided.</strong> No invented features or workflows.</li>
+    <li><strong>Check procedural accuracy</strong> against the official help content: steps match, nothing omitted, no unsupported workflows added.</li>
+    <li><strong>Target a set reading level</strong> for learner-facing text while keeping product terminology intact.</li>
+    <li><strong>Align objectives, content and assessment,</strong> and flag any objective that isn't measured.</li>
+    <li><strong>Keep a human in the loop.</strong> The tips direct designers to compare AI output with the source before anything goes to stakeholders.</li>
+  </ul>
+</section>
+<section>
+  <h2>Two sample prompts</h2>
+  <p class="note">The original toolkit belongs to Fullbay, so these are new examples written for this page in the same style.</p>
+  <h3>Learning objectives from a workflow</h3>
+<pre class="prompt">You are an experienced instructional designer.
+
+Read the workflow below and write 3–5 learning objectives.
+
+Each objective must:
+• Start with a measurable action verb
+• Describe something the learner can be observed doing
+• Reflect a real task in the learner's job
+• Avoid verbs like "understand," "know," or "learn"
+
+Use only the information in the workflow. If a step is unclear, list it as a question instead of guessing.
+
+Workflow:
+[paste]</pre>
+  <h3>Source accuracy check</h3>
+<pre class="prompt">Compare the training draft against the source document below.
+
+List every place where the draft:
+• Changes the order of steps
+• Leaves out a step or a required setting
+• Adds a step, feature, or workflow that isn't in the source
+• Uses a different name for a screen, button, or term
+
+For each issue, quote the draft, quote the source, and suggest a fix. Don't rewrite anything else.
+
+Source:
+[paste]
+
+Draft:
+[paste]</pre>
+</section>
+<section>
+  <h2>The result</h2>
+  <p>Both instructional designers used the toolkit for every AI-assisted course build, including storyboarding, building and applying review feedback. Two designers produced courses with one consistent structure and one voice, and AI sped up the work without lowering the standard.</p>
+</section>
+<section>
+  <h2>What I learned</h2>
+  <p>The value of AI in instructional design isn't the first draft; it's the guardrails. A good prompt carries your standards with it. That's why the toolkit has as many prompts for checking work as for creating it.</p>
+</section>
+
+<nav class="pager" aria-label="More work"><a href="case-two-audiences.html"><small>&larr; Previous</small>One course, two audiences</a><a href="case-sample-course.html" style="text-align:right"><small>Next &rarr;</small>Sample course design brief</a></nav>
+</main>
+<footer><div class="wrap"><strong>Let's talk.</strong> <a href="mailto:ericdavidjones@gmail.com">ericdavidjones@gmail.com</a> · <a href="https://www.linkedin.com/in/ericdavidjones/">LinkedIn</a><br><span class="note">Fullbay case studies are described in general terms and include no proprietary content. Diagrams are my own.</span></div></footer>
+</body>
+</html>

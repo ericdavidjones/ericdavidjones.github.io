@@ -4,23 +4,127 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Eric D. Jones | Instructional Designer</title>
+<meta name="description" content="Portfolio of Eric D. Jones, instructional designer specializing in customer education and eLearning built in Articulate Rise 360 and Storyline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fbfaf7;--ink:#1d2228;--muted:#5a6470;--accent:#1f6f6b}
-@media (prefers-color-scheme:dark){:root{--bg:#14181c;--ink:#eef0f2;--muted:#a3adb8;--accent:#5fbdb5}}
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,sans-serif;padding:20px;box-sizing:border-box}
-main{max-width:520px}
-p.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:13px;font-weight:700;color:var(--accent);margin:0 0 8px}
-h1{font-size:40px;margin:0 0 12px}
-p{color:var(--muted);margin:0 0 20px}
-a{color:var(--accent);font-weight:700}
+:root{--bg:#fbfaf7;--surface:#ffffff;--ink:#1d2228;--muted:#5a6470;--line:#e3e0d8;--accent:#1f6f6b;--accent-ink:#ffffff;--tag:#eef5f4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181c;--surface:#1c2126;--ink:#eef0f2;--muted:#a3adb8;--line:#2d343b;--accent:#5fbdb5;--accent-ink:#0e1316;--tag:#1f2d2c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Lato,system-ui,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{padding:72px 0 48px;border-bottom:1px solid var(--line)}
+.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:13px;font-weight:700;color:var(--accent);margin:0 0 12px}
+h1{font-size:clamp(34px,6vw,52px);line-height:1.1;margin:0 0 16px;font-weight:900}
+.lede{font-size:20px;color:var(--muted);max-width:640px;margin:0 0 28px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:11px 20px;border-radius:6px;font-weight:700;text-decoration:none;border:2px solid var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;padding-top:40px;padding-bottom:40px;border-bottom:1px solid var(--line)}
+.stat b{display:block;font-size:30px;font-weight:900;color:var(--accent)}
+.stat span{color:var(--muted);font-size:15px}
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+h2{font-size:28px;margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 28px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media (max-width:700px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px;display:flex;flex-direction:column}
+.card.feature{grid-column:1/-1;border-left:5px solid var(--accent)}
+.card h3{margin:0 0 8px;font-size:20px}
+.card p{margin:0 0 16px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-bottom:14px}
+.tags span{background:var(--tag);font-size:13px;padding:3px 10px;border-radius:99px}
+.card a.more{font-weight:700;text-decoration:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media (max-width:700px){.two{grid-template-columns:1fr}}
+ul.clean{padding-left:18px;margin:0}
+ul.clean li{margin-bottom:6px}
+footer{padding:48px 0 64px;color:var(--muted)}
 </style>
 </head>
 <body>
-<main>
-  <p class="eyebrow">Instructional Designer</p>
-  <h1>Eric D. Jones</h1>
-  <p>My portfolio is coming soon. In the meantime, you can find me on LinkedIn.</p>
-  <a href="https://www.linkedin.com/in/ericdavidjones/">linkedin.com/in/ericdavidjones</a>
-</main>
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Instructional Designer · Customer Education · eLearning</p>
+    <h1>Eric D. Jones</h1>
+    <p class="lede">I design eLearning that helps people learn software and use it with confidence. For 17 years I've built training for customers, field technicians, and employees. Most recently I built customer education for a SaaS platform used by heavy-duty repair shops.</p>
+    <div class="btns">
+      <a class="btn primary" href="#work">See my work</a>
+      <a class="btn" href="Eric_Jones_Resume.pdf">Download résumé</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap stats">
+  <div class="stat"><b>17 yrs</b><span>in training &amp; development</span></div>
+  <div class="stat"><b>10</b><span>Storyline courses rebuilt in Rise 360</span></div>
+  <div class="stat"><b>6-course</b><span>customer onboarding program</span></div>
+  <div class="stat"><b>4.95+ / 5</b><span>average learner rating</span></div>
+</div>
+
+<section id="work">
+  <div class="wrap">
+    <h2>Work samples</h2>
+    <p class="sub">The interactive sample is an original course I built on a fictional product. The case studies describe my client work in general terms, so they don't share any proprietary content.</p>
+    <div class="grid">
+      <article class="card feature">
+        <h3>Interactive sample: Create and Invoice Your First Work Order</h3>
+        <p>A 15–20 minute onboarding course that teaches a new user of a fictional repair-shop app to take one job from the counter to a sent invoice. It includes a 10-step practice simulation with guided and try-it modes, a scenario-based knowledge check, and a printable job aid.</p>
+        <div class="tags"><span>Software training</span><span>Simulation</span><span>Scenario-based assessment</span></div>
+        <span><a class="more" href="sample-course/index.html">Launch the course →</a> &nbsp; <a class="more" href="case-sample-course.html">Read the design brief →</a></span>
+      </article>
+      <article class="card">
+        <h3>Modernizing a legacy course library</h3>
+        <p>I rebuilt 10 outdated Storyline courses in Rise 360 and gave each one a practice simulation so learners could work through real workflows safely.</p>
+        <div class="tags"><span>Rise 360</span><span>Storyline</span><span>Simulation</span></div>
+        <a class="more" href="case-library-migration.html">Read the case study →</a>
+      </article>
+      <article class="card">
+        <h3>A six-course onboarding program</h3>
+        <p>Single User Shop Essentials is a program for small, one-person shops. I designed the agenda, the per-module knowledge checks, and a capstone assessment.</p>
+        <div class="tags"><span>Program design</span><span>Assessment</span><span>Onboarding</span></div>
+        <a class="more" href="case-onboarding-program.html">Read the case study →</a>
+      </article>
+      <article class="card">
+        <h3>One course, two audiences</h3>
+        <p>I built customer-facing and internal versions of two new-product courses. For the customer versions, I audited the content and rewrote the voice to speak directly to the customer.</p>
+        <div class="tags"><span>Content strategy</span><span>Product launch</span></div>
+        <a class="more" href="case-two-audiences.html">Read the case study →</a>
+      </article>
+      <article class="card">
+        <h3>AI in the design workflow</h3>
+        <p>As my team's AI Champion, I created 15 prompts covering 8 instructional design tasks, with guardrails for human review, source accuracy, and reading level.</p>
+        <div class="tags"><span>Generative AI</span><span>Prompt design</span><span>Quality</span></div>
+        <a class="more" href="case-ai-prompts.html">Read the case study →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap two">
+    <div>
+      <h2>How I work</h2>
+      <p>I start with what the learner needs to do on the job, and I build only what helps them do it. I use ADDIE to structure the work. Every course gets a QA pass for language, accuracy against the build sheet, and readability. I review with SMEs early and often, and I use completion data and survey feedback to decide what to fix next.</p>
+    </div>
+    <div>
+      <h2>Tools &amp; credentials</h2>
+      <ul class="clean">
+        <li>Articulate Rise 360 &amp; Storyline · SCORM · LearnUpon LMS</li>
+        <li>Training and Facilitation Certificate, ATD</li>
+        <li>Generative AI: Skills &amp; Tools for Educators, IBM</li>
+        <li>Introduction to Prompt Engineering, IBM</li>
+        <li>Introduction to Generative AI, IBM</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Let's talk.</strong> <a href="mailto:ericdavidjones@gmail.com">ericdavidjones@gmail.com</a> · <a href="https://www.linkedin.com/in/ericdavidjones/">LinkedIn</a></p>
+  </div>
+</footer>
 </body>
 </html>
