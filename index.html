@@ -34,11 +34,20 @@ h2{font-size:28px;margin:0 0 8px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 @media (max-width:700px){.grid{grid-template-columns:1fr}}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px;display:flex;flex-direction:column}
-.card.feature{grid-column:1/-1;border-left:5px solid var(--accent)}
+.card.feature{grid-column:1/-1}
 .card h3{margin:0 0 8px;font-size:20px}
 .card p{margin:0 0 16px;color:var(--muted)}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-bottom:14px}
 .tags span{background:var(--tag);font-size:13px;padding:3px 10px;border-radius:99px}
+.card-media{display:block;margin:-24px -24px 18px;border-radius:10px 10px 0 0;overflow:hidden;aspect-ratio:2/1;background:#eef5f4;border-bottom:1px solid var(--line)}
+.card-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.card:hover .card-media img{transform:scale(1.03)}
+.card.feature{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;padding:0;overflow:hidden;align-items:stretch}
+.card.feature .card-media{margin:0;border-radius:0;aspect-ratio:auto;min-height:260px;min-width:0;border-bottom:0;border-right:1px solid var(--line)}
+.card.feature .card-media img{object-position:left top}
+.card.feature .card-body{padding:26px 26px 26px 0;display:flex;flex-direction:column}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:700;color:var(--accent);margin:0 0 6px!important}
+@media (max-width:700px){.card.feature{grid-template-columns:1fr;gap:0}.card.feature .card-media{border-right:0;border-bottom:1px solid var(--line);aspect-ratio:16/9;min-height:0}.card.feature .card-body{padding:22px}}
 .card a.more{font-weight:700;text-decoration:none}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
 @media (max-width:700px){.two{grid-template-columns:1fr}}
@@ -73,36 +82,40 @@ footer{padding:48px 0 64px;color:var(--muted)}
 <section id="work">
   <div class="wrap">
     <h2>Work samples</h2>
-    <p class="sub">The interactive sample is an original course I built on a fictional product. The case studies describe my client work in general terms, so they don't share any proprietary content.</p>
+    <p class="sub">An original course I designed, plus four case studies from my work at Fullbay, described without any proprietary content.</p>
     <div class="grid">
       <article class="card feature">
-        <h3>Interactive sample: Create and Invoice Your First Work Order</h3>
-        <p>A 15–20 minute onboarding course that teaches a new user of a fictional repair-shop app to take one job from the counter to a sent invoice. It includes a 10-step practice simulation with guided and try-it modes, a scenario-based knowledge check, and a printable job aid.</p>
-        <div class="tags"><span>Software training</span><span>Simulation</span><span>Scenario-based assessment</span></div>
-        <span><a class="more" href="sample-course/index.html">Launch the course →</a> &nbsp; <a class="more" href="case-sample-course.html">Read the design brief →</a></span>
+        <a class="card-media" href="sample-course/index.html" tabindex="-1" aria-hidden="true"><img src="images/course-preview.jpg" width="848" height="600" alt=""></a>
+        <div class="card-body">
+          <p class="kicker">Interactive sample</p>
+          <h3>Create and Invoice Your First Work Order</h3>
+          <p>A 15-minute onboarding course for a fictional repair-shop app, with a 10-step practice simulation, a scenario-based check and a job aid.</p>
+          <div class="tags"><span>Software training</span><span>Simulation</span><span>Assessment</span></div>
+          <span><a class="more" href="sample-course/index.html">Launch the course →</a> &nbsp; <a class="more" href="case-sample-course.html">Design brief →</a></span>
+        </div>
       </article>
       <article class="card">
+        <a class="card-media" href="case-library-migration.html" tabindex="-1" aria-hidden="true"><img src="images/card-migration.svg" width="400" height="200" alt=""></a>
         <h3>Modernizing a legacy course library</h3>
-        <p>I rebuilt 10 outdated Storyline courses in Rise 360 and gave each one a practice simulation so learners could work through real workflows safely.</p>
-        <div class="tags"><span>Rise 360</span><span>Storyline</span><span>Simulation</span></div>
+        <p>10 outdated Storyline courses rebuilt in Rise 360 in 8 weeks, each with a hands-on practice simulation.</p>
         <a class="more" href="case-library-migration.html">Read the case study →</a>
       </article>
       <article class="card">
+        <a class="card-media" href="case-onboarding-program.html" tabindex="-1" aria-hidden="true"><img src="images/card-onboarding.svg" width="400" height="200" alt=""></a>
         <h3>A six-course onboarding program</h3>
-        <p>Single User Shop Essentials is a program for small, one-person shops. I designed the agenda, the per-module knowledge checks, and a capstone assessment.</p>
-        <div class="tags"><span>Program design</span><span>Assessment</span><span>Onboarding</span></div>
+        <p>A self-guided program that onboards one-person shops without live calls, from research to capstone.</p>
         <a class="more" href="case-onboarding-program.html">Read the case study →</a>
       </article>
       <article class="card">
+        <a class="card-media" href="case-two-audiences.html" tabindex="-1" aria-hidden="true"><img src="images/card-audiences.svg" width="400" height="200" alt=""></a>
         <h3>One course, two audiences</h3>
-        <p>I built customer-facing and internal versions of two new-product courses. For the customer versions, I audited the content and rewrote the voice to speak directly to the customer.</p>
-        <div class="tags"><span>Content strategy</span><span>Product launch</span></div>
+        <p>Customer and internal versions of new-platform training, built from one shared core.</p>
         <a class="more" href="case-two-audiences.html">Read the case study →</a>
       </article>
       <article class="card">
+        <a class="card-media" href="case-ai-prompts.html" tabindex="-1" aria-hidden="true"><img src="images/card-ai.svg" width="400" height="200" alt=""></a>
         <h3>AI in the design workflow</h3>
-        <p>As my team's AI Champion, I created 15 prompts covering 8 instructional design tasks, with guardrails for human review, source accuracy, and reading level.</p>
-        <div class="tags"><span>Generative AI</span><span>Prompt design</span><span>Quality</span></div>
+        <p>A 15-prompt toolkit with built-in guardrails that gave two designers one consistent voice.</p>
         <a class="more" href="case-ai-prompts.html">Read the case study →</a>
       </article>
     </div>
