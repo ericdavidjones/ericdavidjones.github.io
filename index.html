@@ -15,6 +15,9 @@ body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Lato,system-ui
 a{color:var(--accent)}
 .wrap{max-width:960px;margin:0 auto;padding:0 20px}
 header{padding:72px 0 48px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:140px 1fr;gap:36px;align-items:start}
+.headshot{width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid var(--surface);box-shadow:0 4px 18px rgba(0,0,0,.12)}
+@media (max-width:640px){.hero-grid{grid-template-columns:1fr;gap:20px}.headshot{width:104px;height:104px}}
 .eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:13px;font-weight:700;color:var(--accent);margin:0 0 12px}
 h1{font-size:clamp(34px,6vw,52px);line-height:1.1;margin:0 0 16px;font-weight:900}
 .lede{font-size:20px;color:var(--muted);max-width:640px;margin:0 0 28px}
@@ -45,13 +48,16 @@ footer{padding:48px 0 64px;color:var(--muted)}
 </head>
 <body>
 <header>
-  <div class="wrap">
+  <div class="wrap hero-grid">
+    <img class="headshot" src="headshot.jpg" width="140" height="140" alt="Eric D. Jones">
+    <div>
     <p class="eyebrow">Instructional Designer · Customer Education · eLearning</p>
     <h1>Eric D. Jones</h1>
     <p class="lede">I design eLearning that helps people learn software and use it with confidence. For 17 years I've built training for customers, field technicians, and employees. Most recently I built customer education for a SaaS platform used by heavy-duty repair shops.</p>
     <div class="btns">
       <a class="btn primary" href="#work">See my work</a>
       <a class="btn" href="Eric_Jones_Resume.pdf">Download résumé</a>
+    </div>
     </div>
   </div>
 </header>
